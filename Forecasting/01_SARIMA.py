@@ -77,5 +77,3 @@ print(f"Average RMSE score: {np.mean(rmse_scores)}")
 
 # The final model will be chosen based on the lowest RMSE score
 final_model = models[np.argmin(rmse_scores)]
-
-# You can use final_model to make predictions on new data.
