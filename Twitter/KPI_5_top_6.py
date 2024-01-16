@@ -25,7 +25,3 @@ def calculate_sentiment_by_time(tweets, date_time_column='source_created_at', se
         print(top_hours)
     
     return sentiment_by_hour
-
-# Example usage:
-tweets = pd.read_excel('tweets.xlsx') # Assuming the DataFrame is already loaded
-sentiment_by_time = calculate_sentiment_by_time(tweets)
