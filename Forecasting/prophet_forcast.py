@@ -289,26 +289,3 @@ forecast = prophetModel.predict(future_dates)
 print(forecast[['ds', 'yhat']].describe())
 print(forecast[['ds', 'yhat']].head())
 print(forecast[['ds', 'yhat']].tail())
-
-# API endpoint to retrieve forecast for specific days
-@app.route('/daily_forecast', methods=['GET'])
-def daily_forecast():
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date', start_date)
-    print(f"Start Date: {start_date}, End Date: {end_date}")  # Debugging print statement
-    daily_forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
-    print(daily_forecast)  # Debugging print statement
-    return jsonify(daily_forecast[['ds', 'yhat']].to_dict(orient='records'))
-
-
-# API endpoint to retrieve forecast for an entire year
-@app.route('/yearly_forecast', methods=['GET'])
-def yearly_forecast():
-    year = request.args.get('year')
-    start_date = f'{year}-01-01'
-    end_date = f'{year}-12-31'
-    yearly_forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
-    return jsonify(yearly_forecast[['ds', 'yhat']].to_dict(orient='records'))
-
-if __name__ == '__main__':
-    app.run(debug=True)
